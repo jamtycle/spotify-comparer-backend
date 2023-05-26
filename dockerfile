@@ -1,5 +1,13 @@
 FROM rust:1.69.0
-WORKDIR /usr/src/myapp
+
+ENV ROCKET_ADDRESS=0.0.0.0
+ENV ROCKET_PORT=27040
+ENV ROCKET_ENV=prod
+
+WORKDIR /app
 COPY . .
-RUN cargo install --path .
-CMD ["myapp"]
+
+RUN rustup default nightly
+RUN cargo build
+
+CMD ["cargo", "run"]
